@@ -64,7 +64,7 @@ class D2ARRAY{
 			for(int i=0;i<rows;i++){
 			delete arr[i];
 			}
-			delete arr;
+			delete[] arr;
 			
 			arr = arr2;
 			rows = rows2;
