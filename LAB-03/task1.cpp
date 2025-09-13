@@ -42,13 +42,28 @@ class LinkedList{
 			while(temp!=nullptr){
 				
 				if(temp->data==book){
-					cout<<"EXISTS"<<endl;
+					cout<<endl<<book<<" Exists"<<endl;
 					return true;
 				}
 				temp= temp->next;
 				}
-				cout<<"DOESN'T EXISTS"<<endl;
+				cout<<endl<<book<<" Doesn't Exists"<<endl;
 				return false;
+		}
+		void InsertAfter(string target,string book){
+			Node * temp = head;
+			while(temp!=nullptr){
+				
+				if(temp->data == target){
+					Node * n = new Node(book);
+					n->next = temp->next;
+					temp->next = n;
+						break;
+				}
+				
+				temp =  temp->next;
+			}
+			
 		}
 		void display(){
 			Node *temp = head;
@@ -67,9 +82,11 @@ class LinkedList{
 };
 int main(){
 	LinkedList l1;
-	l1.insertAtEnd("PF");
-	
+	l1.insertAtFront("Artificial Intelligence");
+	l1.insertAtEnd("Machine Learning");
+	l1.InsertAfter("Operating Systems","Cyber Security");
 	l1.display();
+	l1.search("Database Systems");
 	
 	return 0;
 }
