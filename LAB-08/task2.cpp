@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-class Node
-{
+class Node{
 public:
-    int data;
+       int data;
     Node *left;
+
     Node *right;
 
     Node(int val)
@@ -49,9 +49,13 @@ public:
     int height(Node *node)
     {
         if (node == nullptr)
+            
             return 0;
         int leftHeight = height(node->left);
+        
         int rightHeight = height(node->right);
+
+        
         return 1 + max(leftHeight, rightHeight);
     }
 };
@@ -63,13 +67,18 @@ int main()
     tree.root = tree.createNode(1);
     tree.root->left = tree.createNode(2);
     tree.root->right = tree.createNode(3);
+    
     tree.root->left->left = tree.createNode(4);
+
+    
     tree.root->left->right = tree.createNode(5);
     tree.root->right->right = tree.createNode(6);
 
-    cout << "Total Nodes: " << tree.countNodes(tree.root) << endl;
-    cout << "Leaf Nodes: " << tree.countLeafNodes(tree.root) << endl;
-    cout << "Height of Tree: " << tree.height(tree.root) << endl;
+    cout << "total nodes: " << tree.countNodes(tree.root) << endl;
+    cout << "leaf nodes: " << tree.countLeafNodes(tree.root) << endl;
+
+    
+    cout << "height of tree: " << tree.height(tree.root) << endl;
 
     return 0;
 }
