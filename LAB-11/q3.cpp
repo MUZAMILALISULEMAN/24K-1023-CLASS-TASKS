@@ -3,69 +3,85 @@ using namespace std;
 
 class hashTable {
 private:
-    int arr[100];
-    int size;
+static const int SIZE = 100;
+int arr[SIZE];
+bool occupied[SIZE];
+
+
+int hash(int key) {
+    return key % SIZE;
+}
+
 
 public:
-    hashTable() { size = 0; }
+hashTable() {
+for (int i = 0; i < SIZE; i++) {
+arr[i] = 0;
+occupied[i] = false;
+}
+}
 
-    void add(int x) {
-        int i = size - 1;
-        while (i >= 0 && arr[i] > x) {
-            arr[i + 1] = arr[i];
-            i--;
+
+void add(int key) {
+    int idx = hash(key);
+    int start = idx;
+    while (occupied[idx]) {
+        idx = (idx + 1) % SIZE;
+        if (idx == start) return;
+    }
+    arr[idx] = key;
+    occupied[idx] = true;
+}
+
+void removeValue(int key) {
+    int idx = hash(key);
+    int start = idx;
+    while (occupied[idx]) {
+        if (arr[idx] == key) {
+            occupied[idx] = false;
+            return;
         }
-        arr[i + 1] = x;
-        size++;
+        idx = (idx + 1) % SIZE;
+        if (idx == start) return;
     }
+}
 
-    void removeValue(int x) {
-        int index = -1;
-        for (int i = 0; i < size; i++)
-            if (arr[i] == x) index = i;
-
-        if (index == -1) return;
-
-        for (int i = index; i < size - 1; i++)
-            arr[i] = arr[i + 1];
-
-        size--;
+void search(int key) {
+    int idx = hash(key);
+    int start = idx;
+    while (occupied[idx]) {
+        if (arr[idx] == key) {
+            cout << key << " found\n";
+            return;
+        }
+        idx = (idx + 1) % SIZE;
+        if (idx == start) break;
     }
+    cout << key << " not found\n";
+}
 
-    void search(int x) {
-        for (int i = 0; i < size; i++)
-            if (arr[i] == x) {
-                cout << x << " found\n";
-                return;
-            }
-        cout << x << " not found\n";
+void display() {
+    for (int i = 0; i < SIZE; i++) {
+        if (occupied[i]) cout << arr[i] << " ";
     }
+    cout << endl;
+}
 
-    void display() {
-        for (int i = 0; i < size; i++)
-            cout << arr[i] << " ";
-        cout << endl;
-    }
+
 };
 
 int main() {
-    hashTable h;
-
-    h.add(1);
-    h.add(3);
-    h.add(4);
-    h.add(5);
-    h.add(7);
-
-    h.display();
-
-    cout << "Remove 3\n";
-    h.removeValue(3);
-
-    h.display();
-
-    h.search(5);
-    h.search(6);
-
-    return 0;
+hashTable h;
+h.add(1);
+h.add(3);
+h.add(4);
+h.add(5);
+h.add(7);
+h.display();
+cout << "Remove 3\n";
+h.removeValue(3);
+h.display();
+h.search(5);
+h.search(6);
+return 0;
 }
